@@ -6,6 +6,8 @@ project(hill
 
 add_subdirectory(src)
 
+add_subdirectory(examples)
+
 enable_testing()
 
 add_subdirectory(tests)
@@ -21,14 +23,12 @@ target_compile_definitions(project_flags INTERFACE
 
 target_compile_options(project_flags INTERFACE
     $<$<OR:$<C_COMPILER_ID:GNU>,$<C_COMPILER_ID:Clang>>:
-        # Warnings
         -Wall
         -Wextra
         -Wpedantic
         -Wshadow
         -Wformat=2
         -Werror
-        # Flags específicas por Build Type
         $<$<CONFIG:Debug>:-g>
         $<$<CONFIG:Release>:-O3>
         $<$<CONFIG:RelWithDebInfo>:-O3;-g;-fno-omit-frame-pointer> # O ponto e vírgula separa os argumentos no CMake

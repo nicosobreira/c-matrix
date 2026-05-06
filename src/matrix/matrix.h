@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#include "matrix_errors.h"
+#include "errors.h"
 
 #define MATRIX_SIZE 256
 
@@ -18,31 +18,28 @@ typedef struct Matrix
 } Matrix;
 
 #define X(enum_name, error_string) enum_name,
-typedef enum MatrixStatus
+typedef enum MatrixResult
 {
     MATRIX_ERRORS(X)
-} MatrixStatus;
+} MatrixResult;
 #undef X
 
 // ============================================================================
 
-MatrixStatus Matrix_New(size_t lines, size_t columns, Matrix *new);
+MatrixResult Matrix_New(Matrix *new, size_t lines, size_t columns);
 
-MatrixStatus Matrix_Add(Matrix *a, Matrix *b, Matrix *result);
-
-MatrixStatus Matrix_Product(Matrix *a, Matrix *b, Matrix *result);
-
-MatrixStatus Matrix_Inverse(Matrix *self, Matrix *result);
-
-MatrixStatus Matrix_Determinant(Matrix *self, int *result);
+MatrixResult Matrix_From(Matrix *new, size_t lines, size_t columns, Type data[lines][columns]);
 
 // ============================================================================
 
 static inline Type Matrix_Get(Matrix *self, size_t i, size_t j)
 {
-    assert(i < self->lines && j < self->columns);
-
     return self->data[i][j];
+}
+
+static inline void Matrix_Set(Matrix *self, size_t i, size_t j, Type value)
+{
+    self->data[i][j] = value;
 }
 
 static inline bool Matrix_IsSquare(Matrix *self)
@@ -59,4 +56,4 @@ static inline bool Matrix_IsSizeEqual(Matrix *a, Matrix *b)
 
 // ============================================================================
 
-const char *Matrix_GetErrorMsg(MatrixStatus status);
+const char *Matrix_GetErrorMsg(MatrixResult status);

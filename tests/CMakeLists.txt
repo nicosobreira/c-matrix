@@ -1,5 +1,3 @@
-set(FETCHCONTENT_QUIET OFF)
-
 include(FetchContent)
 
 FetchContent_Declare(
@@ -16,6 +14,6 @@ file(GLOB_RECURSE TESTS_SOURCES CONFIGURE_DEPENDS
 
 add_executable(test_matrix ${TESTS_SOURCES})
 
-target_link_libraries(test_matrix PRIVATE matrix unity project_flags)
+target_link_libraries(test_matrix PRIVATE matrix unity)
 
 add_test(NAME TestMathLib COMMAND test_matrix)

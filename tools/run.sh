@@ -2,7 +2,7 @@
 
 set -eou pipefail
 
-BINARY="./build/app"
+BINARY="./build/examples/examples"
 
 function run_build()
 {
