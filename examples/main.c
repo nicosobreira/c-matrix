@@ -12,8 +12,8 @@ int main(void)
 {
     printf("Hello, World!\n");
 
-    int a_data[M][N] = {{1, -2, 3}, {9, -8, 7}, {0, 1, -1}};
-    int b_data[N][P] = {{4, 5}, {6, 5}, {4, 6}};
+    Type a_data[M][N] = {{1, -2, 3}, {9, -8, 7}, {0, 1, -1}};
+    Type b_data[N][P] = {{4, 5}, {6, 5}, {4, 6}};
 
     Matrix a;
     Matrix b;
