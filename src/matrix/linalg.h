@@ -1,6 +1,10 @@
 #pragma once
 
-#include "matrix.h"
+#include "core.h"
+
+MatrixResult Matrix_Identity(Matrix *result, size_t n);
+
+MatrixResult Matrix_Determinant(Matrix *self, Type *result);
 
 /** Transform a matrix to it's triangular superior using Gaussian Elimination
  * @retval MATRIX_OK The operation was a success

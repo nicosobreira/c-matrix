@@ -1,4 +1,4 @@
-#include "operations.h"
+#include "matrix/core.h"
 
 typedef Type (*Operation)(Type x, Type y);
 

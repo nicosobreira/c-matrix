@@ -1,6 +1,4 @@
-#include "decomposition.h"
-
-#include "identity.h"
+#include "matrix/linalg.h"
 
 static inline void Matrix_SwapLines(Matrix *self, size_t line_a, size_t line_b)
 {

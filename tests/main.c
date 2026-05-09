@@ -1,6 +1,6 @@
 #include "unity.h"
 
-#include "matrix/matrix.h"
+#include "matrix/core.h"
 
 #include "determinant.h"
 #include "inverse.h"

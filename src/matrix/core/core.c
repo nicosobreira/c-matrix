@@ -1,4 +1,4 @@
-#include "matrix.h"
+#include "matrix/core.h"
 
 #include <assert.h>
 
@@ -50,7 +50,7 @@ MatrixResult Matrix_NewFrom(Matrix *result, Matrix *from)
     return MATRIX_OK;
 }
 
-MatrixResult Matrix_From(Matrix *new, size_t lines, size_t columns, Type data[lines][columns])
+MatrixResult Matrix_Load(Matrix *new, size_t lines, size_t columns, Type data[lines][columns])
 {
     MatrixResult r = Matrix_New(new, lines, columns);
 

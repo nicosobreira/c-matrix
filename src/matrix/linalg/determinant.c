@@ -1,6 +1,4 @@
-#include "determinant.h"
-
-#include "decomposition.h"
+#include "matrix/linalg.h"
 
 static inline Type det_1x1(Matrix *self)
 {

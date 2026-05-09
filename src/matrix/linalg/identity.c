@@ -1,4 +1,4 @@
-#include "identity.h"
+#include "matrix/linalg.h"
 
 static inline void zero_the_matrix(Matrix *self)
 {

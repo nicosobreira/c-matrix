@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#include "errors.h"
+#include "core/errors.h"
 
 #define MATRIX_SIZE 256
 
@@ -30,7 +30,7 @@ MatrixResult Matrix_New(Matrix *new, size_t lines, size_t columns);
 
 MatrixResult Matrix_NewFrom(Matrix *new, Matrix *base);
 
-MatrixResult Matrix_From(Matrix *new, size_t lines, size_t columns, Type data[lines][columns]);
+MatrixResult Matrix_Load(Matrix *new, size_t lines, size_t columns, Type data[lines][columns]);
 
 // ============================================================================
 
@@ -59,3 +59,21 @@ static inline bool Matrix_IsSizeEqual(Matrix *a, Matrix *b)
 // ============================================================================
 
 const char *Matrix_GetErrorMsg(MatrixResult status);
+
+// ============================================================================
+
+MatrixResult Matrix_Add(Matrix *result, Matrix *a, Matrix *b);
+
+MatrixResult Matrix_AddBy(Matrix *result, Matrix *self, Type value);
+
+MatrixResult Matrix_Subtract(Matrix *result, Matrix *a, Matrix *b);
+
+MatrixResult Matrix_SubtractBy(Matrix *result, Matrix *self, Type value);
+
+MatrixResult Matrix_Product(Matrix *result, Matrix *a, Matrix *b);
+
+MatrixResult Matrix_ProductBy(Matrix *result, Matrix *self, Type scalar);
+
+// ============================================================================
+
+void Matrix_Print(Matrix *self);

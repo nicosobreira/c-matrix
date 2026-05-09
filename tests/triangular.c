@@ -2,7 +2,7 @@
 
 #include "unity.h"
 
-#include "matrix/decomposition.h"
+#include "matrix/linalg.h"
 
 #include "utils.h"
 
@@ -22,7 +22,7 @@ void test_Matrix_TriangularSuperior_WithoutSwap(void)
     Type original_data[2][2] = {{2, 4}, {1, 5}};
 
     Matrix original;
-    Matrix_From(&original, 2, 2, original_data);
+    Matrix_Load(&original, 2, 2, original_data);
 
     int line_swaps;
     Matrix triangular;
@@ -37,7 +37,7 @@ void test_Matrix_TriangularSuperior_WithSwap(void)
     Type original_data[2][2] = {{0, 1}, {2, 3}};
 
     Matrix original;
-    Matrix_From(&original, 2, 2, original_data);
+    Matrix_Load(&original, 2, 2, original_data);
 
     int line_swaps;
     Matrix triangular;
@@ -73,7 +73,7 @@ void test_Matrix_TriangularSuperior_Correctness(void)
     };
 
     Matrix original;
-    Matrix_From(&original, 3, 3, original_data);
+    Matrix_Load(&original, 3, 3, original_data);
 
     Matrix triangular;
     MatrixResult r = Matrix_TriangularSuperior(&triangular, &original, NULL);
@@ -92,7 +92,7 @@ void test_Matrix_TriangularSuperior_DoNothing(void)
     };
 
     Matrix original;
-    Matrix_From(&original, 3, 3, original_data);
+    Matrix_Load(&original, 3, 3, original_data);
 
     Matrix triangular;
     MatrixResult r = Matrix_TriangularSuperior(&triangular, &original, NULL);

@@ -2,9 +2,8 @@
 
 #include "unity.h"
 
-#include "matrix/decomposition.h"
-#include "matrix/identity.h"
-#include "matrix/matrix.h"
+#include "matrix/core.h"
+#include "matrix/linalg.h"
 
 #include "utils.h"
 
@@ -15,7 +14,7 @@ void test_Matrix_Inverse_2x2(void)
 
     Matrix a, inverse;
 
-    Matrix_From(&a, 2, 2, original);
+    Matrix_Load(&a, 2, 2, original);
 
     MatrixResult r = Matrix_Inverse(&inverse, &a);
 
@@ -31,7 +30,7 @@ void test_Matrix_Inverse_WithLineSwap(void)
 
     Matrix a, inverse;
 
-    Matrix_From(&a, 2, 2, original);
+    Matrix_Load(&a, 2, 2, original);
 
     MatrixResult r = Matrix_Inverse(&inverse, &a);
 
@@ -46,7 +45,7 @@ void test_Matrix_Inverse_NotInvertible(void)
 
     Matrix a, inverse;
 
-    Matrix_From(&a, 2, 2, data);
+    Matrix_Load(&a, 2, 2, data);
 
     MatrixResult r = Matrix_Inverse(&inverse, &a);
 
@@ -74,7 +73,7 @@ void test_Matrix_Inverse_Identity(void)
 
     Matrix a, inverse;
 
-    Matrix_From(&a, 3, 3, data);
+    Matrix_Load(&a, 3, 3, data);
 
     MatrixResult r = Matrix_Inverse(&inverse, &a);
 

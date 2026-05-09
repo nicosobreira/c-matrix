@@ -2,8 +2,8 @@
 
 #include "unity.h"
 
-#include "matrix/determinant.h"
-#include "matrix/matrix.h"
+#include "matrix/core.h"
+#include "matrix/linalg.h"
 
 void test_Matrix_Determinant_NotSquare(void)
 {
@@ -24,7 +24,7 @@ void test_Matrix_Determinant_1x1(void)
     Type matrix[1][1] = {{expected}};
 
     Matrix a;
-    Matrix_From(&a, 1, 1, matrix);
+    Matrix_Load(&a, 1, 1, matrix);
 
     Type det = 0;
     MatrixResult result = Matrix_Determinant(&a, &det);
@@ -41,7 +41,7 @@ void test_Matrix_Determinant_2x2(void)
     Type matrix[2][2] = {{-2, 1}, {3, 9}};
 
     Matrix a;
-    Matrix_From(&a, 2, 2, matrix);
+    Matrix_Load(&a, 2, 2, matrix);
 
     Type det = 0;
     MatrixResult result = Matrix_Determinant(&a, &det);
@@ -58,7 +58,7 @@ void test_Matrix_Determinant_3x3(void)
     Type matrix[3][3] = {{-4, 2, 1}, {-9, 3, 0}, {5, 1, 2}};
 
     Matrix a;
-    Matrix_From(&a, 3, 3, matrix);
+    Matrix_Load(&a, 3, 3, matrix);
 
     Type det = 0;
     MatrixResult result = Matrix_Determinant(&a, &det);
@@ -79,7 +79,7 @@ void test_Matrix_Determinant_4x4(void)
     };
 
     Matrix a;
-    Matrix_From(&a, 4, 4, data);
+    Matrix_Load(&a, 4, 4, data);
 
     Type det;
     MatrixResult r = Matrix_Determinant(&a, &det);

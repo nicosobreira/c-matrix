@@ -1,9 +1,7 @@
 #include <stdio.h>
 
-#include "matrix/decomposition.h"
-#include "matrix/matrix.h"
-#include "matrix/operations.h"
-#include "matrix/print.h"
+#include "matrix/core.h"
+#include "matrix/linalg.h"
 
 int main(void)
 {
@@ -17,7 +15,7 @@ int main(void)
 
     Matrix a;
 
-    Matrix_From(&a, 3, 3, a_data);
+    Matrix_Load(&a, 3, 3, a_data);
 
     Matrix c;
 

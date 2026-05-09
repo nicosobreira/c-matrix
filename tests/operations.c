@@ -2,8 +2,7 @@
 
 #include "unity.h"
 
-#include "matrix/matrix.h"
-#include "matrix/operations.h"
+#include "matrix/core.h"
 
 #include "utils.h"
 
@@ -33,8 +32,8 @@ void test_Matrix_Add_Correctness(void)
     Matrix a;
     Matrix b;
 
-    Matrix_From(&a, N, N, a_data);
-    Matrix_From(&b, N, N, b_data);
+    Matrix_Load(&a, N, N, a_data);
+    Matrix_Load(&b, N, N, b_data);
 
     Matrix c;
 
@@ -74,8 +73,8 @@ void test_Matrix_Product_Correctness(void)
     Matrix a;
     Matrix b;
 
-    Matrix_From(&a, M, N, a_data);
-    Matrix_From(&b, N, P, b_data);
+    Matrix_Load(&a, M, N, a_data);
+    Matrix_Load(&b, N, P, b_data);
 
     Matrix c;
 
@@ -104,8 +103,8 @@ void test_Matrix_Product_CorrectnessVector(void)
     Matrix a;
     Matrix b;
 
-    Matrix_From(&a, M, N, a_data);
-    Matrix_From(&b, N, P, b_data);
+    Matrix_Load(&a, M, N, a_data);
+    Matrix_Load(&b, N, P, b_data);
 
     Matrix product;
 
