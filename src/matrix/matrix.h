@@ -8,7 +8,7 @@
 
 #define MATRIX_SIZE 256
 
-typedef int Type;
+typedef double Type;
 
 typedef struct Matrix
 {
