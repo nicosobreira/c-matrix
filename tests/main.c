@@ -14,7 +14,7 @@ void tearDown(void)
 {
 }
 
-void test_matrix_new_allocation_overflow(void)
+void test_Matrix_New_AllocationOverflow(void)
 {
     Matrix a;
 
@@ -23,7 +23,7 @@ void test_matrix_new_allocation_overflow(void)
     TEST_ASSERT_EQUAL(MATRIX_ERR_ALLOCATION, result);
 }
 
-void test_matrix_new_allocation_zero(void)
+void test_Matrix_New_AllocationZero(void)
 {
     Matrix a;
 
@@ -36,11 +36,11 @@ int main(void)
 {
     UNITY_BEGIN();
 
-    RUN_TEST(test_matrix_new_allocation_overflow);
-    RUN_TEST(test_matrix_new_allocation_zero);
+    RUN_TEST(test_Matrix_New_AllocationOverflow);
+    RUN_TEST(test_Matrix_New_AllocationZero);
 
-    RUN_TEST(test_matrix_add_diferent_sizes);
-    RUN_TEST(test_matrix_add_correctness);
+    RUN_TEST(test_Matrix_Add_DiferentSizes);
+    RUN_TEST(test_Matrix_Add_Correctness);
 
     RUN_TEST(test_Matrix_Product_WrongDimensions);
     RUN_TEST(test_Matrix_Product_Correctness);

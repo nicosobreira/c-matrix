@@ -7,7 +7,7 @@
 
 #include "utils.h"
 
-void test_matrix_add_diferent_sizes(void)
+void test_Matrix_Add_DiferentSizes(void)
 {
     Matrix a;
     Matrix b;
@@ -22,7 +22,7 @@ void test_matrix_add_diferent_sizes(void)
     TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
 }
 
-void test_matrix_add_correctness(void)
+void test_Matrix_Add_Correctness(void)
 {
 #define N 2
 
