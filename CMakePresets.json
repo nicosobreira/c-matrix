@@ -1,30 +1,40 @@
 {
-	"version": 3,
-	"configurePresets": [
-		{
-			"name": "debug",
-			"binaryDir": "build",
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Debug",
-				"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-			}
-		},
-
-		{
-			"name": "release",
-			"binaryDir": "build",
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Release"
-			}
-		},
-
-		{
-			"name": "profile",
-			"binaryDir": "build/profile",
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "RelWithDebInfo",
-				"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-			}
-		}
-	]
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "BUILD_EXAMPLES": "ON",
+        "BUILD_TESTS": "ON"
+      }
+    },
+    {
+      "name": "debug",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_EXAMPLES": "OFF",
+        "BUILD_TESTS": "OFF"
+      }
+    },
+    {
+      "name": "test",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_EXAMPLES": "OFF",
+        "BUILD_TESTS": "ON"
+      }
+    }
+  ]
 }

@@ -4,13 +4,8 @@ project(lib-matrix
   LANGUAGES C
 )
 
-add_subdirectory(src)
-
-add_subdirectory(examples)
-
-enable_testing()
-
-add_subdirectory(tests)
+option(BUILD_EXAMPLES "Compile the examples" ON)
+option(BUILD_TESTS "Compile the tests" ON)
 
 add_library(project_flags INTERFACE)
 
@@ -29,13 +24,24 @@ target_compile_options(project_flags INTERFACE
         -Wshadow
         -Wformat=2
         -Werror
-        $<$<CONFIG:Debug>:-g>
-        $<$<CONFIG:Release>:-O3>
-        $<$<CONFIG:RelWithDebInfo>:-O3;-g;-fno-omit-frame-pointer> # O ponto e vírgula separa os argumentos no CMake
+        $<$<CONFIG:RelWithDebInfo>:-O3;-g;-fno-omit-frame-pointer>
     >
 
     $<$<C_COMPILER_ID:MSVC>:
         /W4
-        /WX # Equivalente ao -Werror do GCC (Remova se não quiser falhar o build no Windows por causa de warnings)
+        /WX
     >
 )
+
+# =============================================================================
+
+add_subdirectory(src)
+
+if(BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
+
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
