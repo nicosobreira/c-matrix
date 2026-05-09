@@ -63,35 +63,3 @@ MatrixResult Matrix_Product(Matrix *result, Matrix *a, Matrix *b)
 }
 
 MatrixResult Matrix_Inverse(Matrix *self, Matrix *result);
-
-MatrixResult Matrix_Determinant(Matrix *self, int *result)
-{
-    if (!Matrix_IsSquare(self))
-    {
-        return MATRIX_ERR_DIMENSIONS;
-    }
-
-    size_t n = self->lines;
-
-    if (n == 1)
-    {
-        *result = Matrix_Get(self, 0, 0);
-        return MATRIX_OK;
-    }
-
-    if (n == 2)
-    {
-        Type first = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1);
-        Type second = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 0);
-
-        *result = first - second;
-        return MATRIX_OK;
-    }
-
-    if (n == 3)
-    {
-        // Continue
-    }
-
-    return MATRIX_OK;
-}
