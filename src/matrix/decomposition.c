@@ -1,6 +1,5 @@
 #include "decomposition.h"
 
-#include "determinant.h"
 #include "identity.h"
 
 static inline void Matrix_SwapLines(Matrix *self, size_t line_a, size_t line_b)
@@ -25,8 +24,8 @@ static inline void Matrix_MultiplyLineBy(Matrix *self, size_t target_line, Type 
     }
 }
 
-static inline void Matrix_AddingMultipleBy(Matrix *self, size_t source_line, size_t target_line, Type scalar,
-                                           size_t start_col)
+static inline void Matrix_AddLineByMultiple(Matrix *self, size_t source_line, size_t target_line, Type scalar,
+                                            size_t start_col)
 {
     for (size_t j = start_col; j < self->columns; ++j)
     {
@@ -95,7 +94,7 @@ MatrixResult Matrix_TriangularSuperior(Matrix *result, Matrix *from, int *line_s
 
             Type k = Matrix_Get(result, current, pivot) / Matrix_Get(result, pivot, pivot);
 
-            Matrix_AddingMultipleBy(result, pivot, current, -k, pivot);
+            Matrix_AddLineByMultiple(result, pivot, current, -k, pivot);
         }
     }
 
@@ -146,7 +145,7 @@ MatrixResult Matrix_Inverse(Matrix *result, Matrix *from)
 
         if (Matrix_Get(&copy, pivot, pivot) != 1)
         {
-            Type scalar = 1 / Matrix_Get(&copy, pivot, pivot);
+            Type scalar = 1.0 / Matrix_Get(&copy, pivot, pivot);
 
             Matrix_MultiplyLineBy(&copy, pivot, scalar, 0);
             Matrix_MultiplyLineBy(result, pivot, scalar, 0);
@@ -168,8 +167,8 @@ MatrixResult Matrix_Inverse(Matrix *result, Matrix *from)
             // The pivot is already 1
             Type k = Matrix_Get(&copy, current, pivot) / 1.0;
 
-            Matrix_AddingMultipleBy(&copy, pivot, current, -k, pivot);
-            Matrix_AddingMultipleBy(result, pivot, current, -k, 0);
+            Matrix_AddLineByMultiple(&copy, pivot, current, -k, pivot);
+            Matrix_AddLineByMultiple(result, pivot, current, -k, 0);
         }
     }
 

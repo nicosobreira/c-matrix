@@ -3,6 +3,7 @@
 #include "matrix/matrix.h"
 
 #include "determinant.h"
+#include "inverse.h"
 #include "operations.h"
 #include "triangular.h"
 
@@ -58,6 +59,12 @@ int main(void)
     RUN_TEST(test_Matrix_TriangularSuperior_NotSquare);
     RUN_TEST(test_Matrix_TriangularSuperior_Correctness);
     RUN_TEST(test_Matrix_TriangularSuperior_DoNothing);
+
+    RUN_TEST(test_Matrix_Inverse_2x2);
+    RUN_TEST(test_Matrix_Inverse_WithLineSwap);
+    RUN_TEST(test_Matrix_Inverse_NotInvertible);
+    RUN_TEST(test_Matrix_Inverse_NotSquare);
+    RUN_TEST(test_Matrix_Inverse_Identity);
 
     return UNITY_END();
 }
