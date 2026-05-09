@@ -28,13 +28,13 @@ typedef enum MatrixResult
 
 MatrixResult Matrix_New(Matrix *new, size_t lines, size_t columns);
 
-MatrixResult Matrix_NewFrom(Matrix *new, Matrix *base);
+MatrixResult Matrix_NewFrom(Matrix *result, const Matrix *from);
 
 MatrixResult Matrix_Load(Matrix *new, size_t lines, size_t columns, Type data[lines][columns]);
 
 // ============================================================================
 
-static inline Type Matrix_Get(Matrix *self, size_t i, size_t j)
+static inline Type Matrix_Get(const Matrix *self, size_t i, size_t j)
 {
     return self->data[i][j];
 }
@@ -44,14 +44,14 @@ static inline void Matrix_Set(Matrix *self, size_t i, size_t j, Type value)
     self->data[i][j] = value;
 }
 
-static inline bool Matrix_IsSquare(Matrix *self)
+static inline bool Matrix_IsSquare(const Matrix *self)
 {
     return (self->lines == self->columns);
 }
 
 /** Check if the dimensions of the matrices are equal
  */
-static inline bool Matrix_IsSizeEqual(Matrix *a, Matrix *b)
+static inline bool Matrix_IsSizeEqual(const Matrix *a, const Matrix *b)
 {
     return (a->lines == b->lines && a->columns == b->columns);
 }
@@ -62,18 +62,18 @@ const char *Matrix_GetErrorMsg(MatrixResult status);
 
 // ============================================================================
 
-MatrixResult Matrix_Add(Matrix *result, Matrix *a, Matrix *b);
+MatrixResult Matrix_Add(Matrix *result, const Matrix *a, const Matrix *b);
 
-MatrixResult Matrix_AddBy(Matrix *result, Matrix *self, Type value);
+MatrixResult Matrix_AddBy(Matrix *result, const Matrix *self, Type value);
 
-MatrixResult Matrix_Subtract(Matrix *result, Matrix *a, Matrix *b);
+MatrixResult Matrix_Subtract(Matrix *result, const Matrix *a, const Matrix *b);
 
-MatrixResult Matrix_SubtractBy(Matrix *result, Matrix *self, Type value);
+MatrixResult Matrix_SubtractBy(Matrix *result, const Matrix *self, Type value);
 
-MatrixResult Matrix_Product(Matrix *result, Matrix *a, Matrix *b);
+MatrixResult Matrix_Product(Matrix *result, const Matrix *a, const Matrix *b);
 
-MatrixResult Matrix_ProductBy(Matrix *result, Matrix *self, Type scalar);
+MatrixResult Matrix_ProductBy(Matrix *result, const Matrix *self, Type scalar);
 
 // ============================================================================
 
-void Matrix_Print(Matrix *self);
+void Matrix_Print(const Matrix *self);

@@ -30,7 +30,7 @@ MatrixResult Matrix_New(Matrix *new, size_t lines, size_t columns)
     return MATRIX_OK;
 }
 
-MatrixResult Matrix_NewFrom(Matrix *result, Matrix *from)
+MatrixResult Matrix_NewFrom(Matrix *result, const Matrix *from)
 {
     MatrixResult r = Matrix_New(result, from->lines, from->columns);
 

@@ -1,11 +1,11 @@
 #include "matrix/linalg.h"
 
-static inline Type det_1x1(Matrix *self)
+static inline Type det_1x1(const Matrix *self)
 {
     return Matrix_Get(self, 0, 0);
 }
 
-static inline Type det_2x2(Matrix *self)
+static inline Type det_2x2(const Matrix *self)
 {
     Type first = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1);
     Type second = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 0);
@@ -13,7 +13,7 @@ static inline Type det_2x2(Matrix *self)
     return first - second;
 }
 
-static inline Type det_3x3(Matrix *self)
+static inline Type det_3x3(const Matrix *self)
 {
     Type aei = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1) * Matrix_Get(self, 2, 2);
     Type bfg = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 2) * Matrix_Get(self, 2, 0);
@@ -30,7 +30,7 @@ static inline Type det_3x3(Matrix *self)
     return first - second;
 }
 
-static inline Type det_nxn(Matrix *self)
+static inline Type det_nxn(const Matrix *self)
 {
     int line_swaps;
     Matrix triangular;
@@ -50,7 +50,7 @@ static inline Type det_nxn(Matrix *self)
     return result;
 }
 
-MatrixResult Matrix_Determinant(Matrix *self, Type *result)
+MatrixResult Matrix_Determinant(const Matrix *self, Type *result)
 {
     if (!Matrix_IsSquare(self))
     {

@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void Matrix_Print(Matrix *self)
+void Matrix_Print(const Matrix *self)
 {
     for (size_t i = 0; i < self->lines; ++i)
     {

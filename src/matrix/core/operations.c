@@ -17,7 +17,7 @@ static inline Type product(Type x, Type y)
     return x * y;
 }
 
-static inline MatrixResult Matrix_Operation(Matrix *result, Matrix *a, Matrix *b, Operation func)
+static inline MatrixResult Matrix_Operation(Matrix *result, const Matrix *a, const Matrix *b, Operation func)
 {
     if (!Matrix_IsSizeEqual(a, b))
     {
@@ -46,7 +46,7 @@ static inline MatrixResult Matrix_Operation(Matrix *result, Matrix *a, Matrix *b
     return MATRIX_OK;
 }
 
-static inline MatrixResult Matrix_OperationBy(Matrix *result, Matrix *self, Type value, Operation func)
+static inline MatrixResult Matrix_OperationBy(Matrix *result, const Matrix *self, Type value, Operation func)
 {
     MatrixResult r = Matrix_New(result, self->lines, self->columns);
 
@@ -68,27 +68,27 @@ static inline MatrixResult Matrix_OperationBy(Matrix *result, Matrix *self, Type
     return MATRIX_OK;
 }
 
-MatrixResult Matrix_Add(Matrix *result, Matrix *a, Matrix *b)
+MatrixResult Matrix_Add(Matrix *result, const Matrix *a, const Matrix *b)
 {
     return Matrix_Operation(result, a, b, add);
 }
 
-MatrixResult Matrix_AddBy(Matrix *result, Matrix *self, Type value)
+MatrixResult Matrix_AddBy(Matrix *result, const Matrix *self, Type value)
 {
     return Matrix_OperationBy(result, self, value, add);
 }
 
-MatrixResult Matrix_Subtract(Matrix *result, Matrix *a, Matrix *b)
+MatrixResult Matrix_Subtract(Matrix *result, const Matrix *a, const Matrix *b)
 {
     return Matrix_Operation(result, a, b, subtract);
 }
 
-MatrixResult Matrix_SubtractBy(Matrix *result, Matrix *self, Type value)
+MatrixResult Matrix_SubtractBy(Matrix *result, const Matrix *self, Type value)
 {
     return Matrix_OperationBy(result, self, value, subtract);
 }
 
-MatrixResult Matrix_Product(Matrix *result, Matrix *a, Matrix *b)
+MatrixResult Matrix_Product(Matrix *result, const Matrix *a, const Matrix *b)
 {
     if (a->columns != b->lines)
     {
@@ -122,7 +122,7 @@ MatrixResult Matrix_Product(Matrix *result, Matrix *a, Matrix *b)
     return MATRIX_OK;
 }
 
-MatrixResult Matrix_ProductBy(Matrix *result, Matrix *self, Type scalar)
+MatrixResult Matrix_ProductBy(Matrix *result, const Matrix *self, Type scalar)
 {
     return Matrix_OperationBy(result, self, scalar, product);
 }

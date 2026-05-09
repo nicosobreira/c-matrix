@@ -33,7 +33,7 @@ static inline void Matrix_AddLineByMultiple(Matrix *self, size_t source_line, si
     }
 }
 
-MatrixResult Matrix_TriangularSuperior(Matrix *result, Matrix *from, int *line_swaps)
+MatrixResult Matrix_TriangularSuperior(Matrix *result, const Matrix *from, int *line_swaps)
 {
     if (!Matrix_IsSquare(from))
     {
@@ -99,7 +99,7 @@ MatrixResult Matrix_TriangularSuperior(Matrix *result, Matrix *from, int *line_s
     return MATRIX_OK;
 }
 
-MatrixResult Matrix_Inverse(Matrix *result, Matrix *from)
+MatrixResult Matrix_Inverse(Matrix *result, const Matrix *from)
 {
     if (!Matrix_IsSquare(from))
     {
