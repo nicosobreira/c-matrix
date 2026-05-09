@@ -32,19 +32,8 @@ static Type det_3x3(Matrix *self)
 
 static Type det_nxn(Matrix *self)
 {
-    size_t n = self->lines;
 
-    size_t p_line = 0;
-    size_t p_column = 0;
-
-    while (p_line != n && p_column != n)
-    {
-        if (Matrix_Get(self, p_line, p_column) == 0)
-        {
-            // swap with a line below with the current
-        }
-    }
-
+    // If all lines below are zeros, the determinant is also zero
     return Matrix_Get(self, 0, 0);
 }
 

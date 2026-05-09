@@ -5,7 +5,7 @@
 #include "matrix/determinant.h"
 #include "matrix/matrix.h"
 
-void test_matrix_determinant_not_square(void)
+void test_Matrix_Determinant_NotSquare(void)
 {
     Matrix a;
 
@@ -17,7 +17,7 @@ void test_matrix_determinant_not_square(void)
     TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
 }
 
-void test_matrix_determinant_1(void)
+void test_Matrix_Determinant_1x1(void)
 {
     Type expected = 3;
 
@@ -34,7 +34,7 @@ void test_matrix_determinant_1(void)
     TEST_ASSERT_EQUAL(expected, det);
 }
 
-void test_matrix_determinant_2(void)
+void test_Matrix_Determinant_2x2(void)
 {
     Type expected = -21;
 
@@ -51,7 +51,7 @@ void test_matrix_determinant_2(void)
     TEST_ASSERT_EQUAL(expected, det);
 }
 
-void test_matrix_determinant_3(void)
+void test_Matrix_Determinant_3x3(void)
 {
     Type expected = -12;
 

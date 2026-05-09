@@ -1,7 +1,7 @@
 #pragma once
 
-void test_matrix_determinant_not_square(void);
-void test_matrix_determinant_1(void);
-void test_matrix_determinant_2(void);
-void test_matrix_determinant_3(void);
+void test_Matrix_Determinant_NotSquare(void);
+void test_Matrix_Determinant_1x1(void);
+void test_Matrix_Determinant_2x2(void);
+void test_Matrix_Determinant_3x3(void);
 void test_matrix_determinant_n(void);

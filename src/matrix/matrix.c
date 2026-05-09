@@ -32,6 +32,26 @@ MatrixResult Matrix_New(Matrix *new, size_t lines, size_t columns)
     return MATRIX_OK;
 }
 
+MatrixResult Matrix_NewFrom(Matrix *result, Matrix *from)
+{
+    MatrixResult r = Matrix_New(result, from->lines, from->columns);
+
+    if (r != MATRIX_OK)
+    {
+        return r;
+    }
+
+    for (size_t i = 0; i < from->lines; ++i)
+    {
+        for (size_t j = 0; j < from->columns; ++j)
+        {
+            Matrix_Set(result, i, j, Matrix_Get(from, i, j));
+        }
+    }
+
+    return MATRIX_OK;
+}
+
 MatrixResult Matrix_From(Matrix *new, size_t lines, size_t columns, Type data[lines][columns])
 {
     MatrixResult r = Matrix_New(new, lines, columns);

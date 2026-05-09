@@ -45,7 +45,7 @@ void test_matrix_add_correctness(void)
 #undef N
 }
 
-void test_matrix_product_wrong_dimensions(void)
+void test_Matrix_Product_WrongDimensions(void)
 {
     Matrix a;
     Matrix b;
@@ -60,7 +60,7 @@ void test_matrix_product_wrong_dimensions(void)
     TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
 }
 
-void test_matrix_product_correctness(void)
+void test_Matrix_Product_Correctness(void)
 {
 #define M 3
 #define N 3
@@ -90,7 +90,7 @@ void test_matrix_product_correctness(void)
 #undef P
 }
 
-void test_matrix_product_correctness_vector(void)
+void test_Matrix_Product_CorrectnessVector(void)
 {
 #define M 3
 #define N 3

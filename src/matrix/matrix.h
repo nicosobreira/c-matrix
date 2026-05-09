@@ -28,6 +28,8 @@ typedef enum MatrixResult
 
 MatrixResult Matrix_New(Matrix *new, size_t lines, size_t columns);
 
+MatrixResult Matrix_NewFrom(Matrix *new, Matrix *base);
+
 MatrixResult Matrix_From(Matrix *new, size_t lines, size_t columns, Type data[lines][columns]);
 
 // ============================================================================
