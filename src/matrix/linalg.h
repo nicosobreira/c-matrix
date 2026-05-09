@@ -13,7 +13,7 @@ MatrixResult Matrix_Determinant(Matrix *self, Type *result);
  */
 MatrixResult Matrix_TriangularSuperior(Matrix *result, Matrix *from, int *line_swaps);
 
-/** Transform a matrix to it's inverse using the Gauss-Jordan method
+/** Transform a matrix to it's inverse using the Gaussian Elimination
  * @retval MATRIX_OK The operation was a success
  * @retval MATRIX_ERR_DIMENSIONS The matrix `from` isn't square
  * @retval MATRIX_ERR_ALLOCATION Couldn't allocate a new `result` or a internal
