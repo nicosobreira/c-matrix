@@ -24,8 +24,6 @@ MatrixResult Matrix_New(Matrix *new, size_t lines, size_t columns)
         return MATRIX_ERR_ALLOCATION;
     }
 
-    *new = (Matrix){0};
-
     new->lines = lines;
     new->columns = columns;
 

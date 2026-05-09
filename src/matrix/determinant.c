@@ -1,11 +1,13 @@
 #include "determinant.h"
 
-static Type det_1x1(Matrix *self)
+#include "decomposition.h"
+
+static inline Type det_1x1(Matrix *self)
 {
     return Matrix_Get(self, 0, 0);
 }
 
-static Type det_2x2(Matrix *self)
+static inline Type det_2x2(Matrix *self)
 {
     Type first = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1);
     Type second = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 0);
@@ -13,7 +15,7 @@ static Type det_2x2(Matrix *self)
     return first - second;
 }
 
-static Type det_3x3(Matrix *self)
+static inline Type det_3x3(Matrix *self)
 {
     Type aei = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1) * Matrix_Get(self, 2, 2);
     Type bfg = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 2) * Matrix_Get(self, 2, 0);
@@ -30,11 +32,24 @@ static Type det_3x3(Matrix *self)
     return first - second;
 }
 
-static Type det_nxn(Matrix *self)
+static inline Type det_nxn(Matrix *self)
 {
+    int line_swaps;
+    Matrix triangular;
+    Matrix_TriangularSuperior(&triangular, self, &line_swaps);
 
-    // If all lines below are zeros, the determinant is also zero
-    return Matrix_Get(self, 0, 0);
+    Type result = 1;
+    for (size_t i = 0; i < triangular.lines; ++i)
+    {
+        result *= Matrix_Get(&triangular, i, i);
+    }
+
+    if (line_swaps % 2 == 1)
+    {
+        result *= -1;
+    }
+
+    return result;
 }
 
 MatrixResult Matrix_Determinant(Matrix *self, Type *result)

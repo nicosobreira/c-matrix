@@ -1,6 +1,23 @@
 #include "operations.h"
 
-MatrixResult Matrix_Add(Matrix *result, Matrix *a, Matrix *b)
+typedef Type (*Operation)(Type x, Type y);
+
+static inline Type add(Type x, Type y)
+{
+    return x + y;
+}
+
+static inline Type subtract(Type x, Type y)
+{
+    return x - y;
+}
+
+static inline Type product(Type x, Type y)
+{
+    return x * y;
+}
+
+static inline MatrixResult Matrix_Operation(Matrix *result, Matrix *a, Matrix *b, Operation func)
 {
     if (!Matrix_IsSizeEqual(a, b))
     {
@@ -21,12 +38,54 @@ MatrixResult Matrix_Add(Matrix *result, Matrix *a, Matrix *b)
     {
         for (size_t j = 0; j < columns; ++j)
         {
-            Type value = Matrix_Get(a, i, j) + Matrix_Get(b, i, j);
+            Type value = func(Matrix_Get(a, i, j), Matrix_Get(b, i, j));
             Matrix_Set(result, i, j, value);
         }
     }
 
     return MATRIX_OK;
+}
+
+static inline MatrixResult Matrix_OperationBy(Matrix *result, Matrix *self, Type value, Operation func)
+{
+    MatrixResult r = Matrix_New(result, self->lines, self->columns);
+
+    if (r != MATRIX_OK)
+    {
+        return r;
+    }
+
+    for (size_t i = 0; i < result->lines; ++i)
+    {
+        for (size_t j = 0; j < result->columns; ++j)
+        {
+            Type new = func(value, Matrix_Get(self, i, j));
+
+            Matrix_Set(result, i, j, new);
+        }
+    }
+
+    return MATRIX_OK;
+}
+
+MatrixResult Matrix_Add(Matrix *result, Matrix *a, Matrix *b)
+{
+    return Matrix_Operation(result, a, b, add);
+}
+
+MatrixResult Matrix_AddBy(Matrix *result, Matrix *self, Type value)
+{
+    return Matrix_OperationBy(result, self, value, add);
+}
+
+MatrixResult Matrix_Subtract(Matrix *result, Matrix *a, Matrix *b)
+{
+    return Matrix_Operation(result, a, b, subtract);
+}
+
+MatrixResult Matrix_SubtractBy(Matrix *result, Matrix *self, Type value)
+{
+    return Matrix_OperationBy(result, self, value, subtract);
 }
 
 MatrixResult Matrix_Product(Matrix *result, Matrix *a, Matrix *b)
@@ -59,7 +118,11 @@ MatrixResult Matrix_Product(Matrix *result, Matrix *a, Matrix *b)
             Matrix_Set(result, i, j, value);
         }
     }
+
     return MATRIX_OK;
 }
 
-MatrixResult Matrix_Inverse(Matrix *self, Matrix *result);
+MatrixResult Matrix_ProductBy(Matrix *result, Matrix *self, Type scalar)
+{
+    return Matrix_OperationBy(result, self, scalar, product);
+}

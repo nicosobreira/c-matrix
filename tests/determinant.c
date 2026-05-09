@@ -68,4 +68,23 @@ void test_Matrix_Determinant_3x3(void)
     TEST_ASSERT_EQUAL(expected, det);
 }
 
-void test_matrix_determinant_n(void);
+void test_Matrix_Determinant_4x4(void)
+{
+    Type expected_det = 1;
+    Type data[4][4] = {
+        {1, 2, 3, 4},    //
+        {2, 5, 8, 11},   //
+        {3, 8, 14, 20},  //
+        {4, 11, 20, 30}, //
+    };
+
+    Matrix a;
+    Matrix_From(&a, 4, 4, data);
+
+    Type det;
+    MatrixResult r = Matrix_Determinant(&a, &det);
+
+    TEST_ASSERT_EQUAL(MATRIX_OK, r);
+
+    TEST_ASSERT_EQUAL(expected_det, det);
+}

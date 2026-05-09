@@ -50,6 +50,7 @@ int main(void)
     RUN_TEST(test_Matrix_Determinant_1x1);
     RUN_TEST(test_Matrix_Determinant_2x2);
     RUN_TEST(test_Matrix_Determinant_3x3);
+    RUN_TEST(test_Matrix_Determinant_4x4);
 
     RUN_TEST(test_Matrix_TriangularSuperior_NullSwap);
     RUN_TEST(test_Matrix_TriangularSuperior_WithoutSwap);
