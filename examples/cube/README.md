@@ -16,8 +16,8 @@ Based on the angle notation above, the matrices are:
 
 $$
 \begin{matrix}
-cos(\theta) & -sen(\theta) & 0 \\
-sen(\theta) & cos(\theta)  & 0 \\
+cos(\theta) & -sin(\theta) & 0 \\
+sin(\theta) & cos(\theta)  & 0 \\
 0           & 0            & 1
 \end{matrix}
 $$
@@ -26,9 +26,9 @@ $$
 
 $$
 \begin{matrix}
-cos(\beta)  & 0 & sen(\beta) \\
+cos(\beta)  & 0 & sin(\beta) \\
 0           & 1 & 0          \\
--sen(\beta) & 0 & cos(\beta)
+-sin(\beta) & 0 & cos(\beta)
 \end{matrix}
 $$
 
@@ -37,7 +37,7 @@ $$
 $$
 \begin{matrix}
 1 & 0           & 0            \\
-0 & cos(\gamma) & -sen(\gamma) \\
-0 & sen(\gamma) & cos(\gamma)
+0 & cos(\gamma) & -sin(\gamma) \\
+0 & sin(\gamma) & cos(\gamma)
 \end{matrix}
 $$
