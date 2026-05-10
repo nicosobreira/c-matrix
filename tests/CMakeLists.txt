@@ -16,4 +16,4 @@ add_executable(test_matrix ${TESTS_SOURCES})
 
 target_link_libraries(test_matrix PRIVATE matrix unity)
 
-add_test(NAME TestMathLib COMMAND test_matrix)
+add_test(NAME test_matrix COMMAND test_matrix)
