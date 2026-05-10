@@ -6,7 +6,7 @@
 
 #include "core/errors.h"
 
-#define MATRIX_SIZE 256
+#define MATRIX_MAX_SIZE 256
 
 typedef double Type;
 
@@ -14,7 +14,7 @@ typedef struct Matrix
 {
     size_t lines;
     size_t columns;
-    Type data[MATRIX_SIZE][MATRIX_SIZE];
+    Type data[MATRIX_MAX_SIZE][MATRIX_MAX_SIZE];
 } Matrix;
 
 #define X(enum_name, error_string) enum_name,

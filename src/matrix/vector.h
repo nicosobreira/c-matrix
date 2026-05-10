@@ -2,10 +2,12 @@
 
 #include "core.h"
 
+#define VECTOR_MAX_SIZE 8
+
 typedef struct Vector
 {
     size_t size;
-    Type data[MATRIX_SIZE];
+    Type data[VECTOR_MAX_SIZE];
 } Vector;
 
 MatrixResult Vector_New(Vector *v, size_t size);
@@ -26,6 +28,6 @@ static inline void Vector_Set(Vector *self, size_t i, Type value)
 
 // ============================================================================
 
-Type Vector_DotProduct(const Vector *a, const Vector *b); // Produto Escalar
-Type Vector_Norm(const Vector *v);                        // Norma/Magnitude
+Type Vector_DotProduct(const Vector *a, const Vector *b);
+Type Vector_Norm(const Vector *v);
 MatrixResult Vector_Normalize(Vector *result, const Vector *v);

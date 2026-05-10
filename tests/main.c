@@ -19,7 +19,7 @@ void test_Matrix_New_AllocationOverflow(void)
 {
     Matrix a;
 
-    MatrixResult result = Matrix_New(&a, MATRIX_SIZE + 1, 1);
+    MatrixResult result = Matrix_New(&a, MATRIX_MAX_SIZE + 1, 1);
 
     TEST_ASSERT_EQUAL(MATRIX_ERR_ALLOCATION, result);
 }

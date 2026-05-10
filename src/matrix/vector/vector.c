@@ -2,7 +2,7 @@
 
 MatrixResult Vector_New(Vector *v, size_t size)
 {
-    if (size == 0 || size > MATRIX_SIZE)
+    if (size == 0 || size > MATRIX_MAX_SIZE)
     {
         return MATRIX_ERR_ALLOCATION;
     }

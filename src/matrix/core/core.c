@@ -4,12 +4,12 @@
 
 static bool checkSize(size_t lines, size_t columns)
 {
-    if (lines == 0 || lines > MATRIX_SIZE)
+    if (lines == 0 || lines > MATRIX_MAX_SIZE)
     {
         return false;
     }
 
-    if (columns == 0 || columns > MATRIX_SIZE)
+    if (columns == 0 || columns > MATRIX_MAX_SIZE)
     {
         return false;
     }
