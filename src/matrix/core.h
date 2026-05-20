@@ -74,6 +74,4 @@ MatrixResult Matrix_Product(Matrix *result, const Matrix *a, const Matrix *b);
 
 MatrixResult Matrix_ProductBy(Matrix *result, const Matrix *self, Type scalar);
 
-// ============================================================================
-
-void Matrix_Print(const Matrix *self);
+MatrixResult Matrix_ModuleBy(Matrix *self, int modulo);

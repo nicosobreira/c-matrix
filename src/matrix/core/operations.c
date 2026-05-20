@@ -126,3 +126,18 @@ MatrixResult Matrix_ProductBy(Matrix *result, const Matrix *self, Type scalar)
 {
     return Matrix_OperationBy(result, self, scalar, product);
 }
+
+MatrixResult Matrix_ModuleBy(Matrix *self, int modulo)
+{
+    for (size_t i = 0; i < self->lines; ++i)
+    {
+        for (size_t j = 0; j < self->columns; ++j)
+        {
+            int value = (int)Matrix_Get(self, i, j);
+
+            Matrix_Set(self, i, j, value % modulo);
+        }
+    }
+
+    return MATRIX_OK;
+}
