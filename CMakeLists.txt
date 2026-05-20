@@ -35,7 +35,7 @@ target_compile_options(project_flags INTERFACE
 
 # =============================================================================
 
-add_subdirectory(src)
+add_subdirectory(lib)
 
 if(BUILD_EXAMPLES)
     add_subdirectory(examples)

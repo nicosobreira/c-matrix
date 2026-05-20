@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#include "core/errors.h"
+#include "errors.h"
 
 #define MATRIX_MAX_SIZE 256
 

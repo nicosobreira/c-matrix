@@ -7,25 +7,25 @@ static inline Type det_1x1(const Matrix *self)
 
 static inline Type det_2x2(const Matrix *self)
 {
-    Type first = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1);
-    Type second = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 0);
+    const Type first = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1);
+    const Type second = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 0);
 
     return first - second;
 }
 
 static inline Type det_3x3(const Matrix *self)
 {
-    Type aei = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1) * Matrix_Get(self, 2, 2);
-    Type bfg = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 2) * Matrix_Get(self, 2, 0);
-    Type cdh = Matrix_Get(self, 0, 2) * Matrix_Get(self, 1, 0) * Matrix_Get(self, 2, 1);
+    const Type aei = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1) * Matrix_Get(self, 2, 2);
+    const Type bfg = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 2) * Matrix_Get(self, 2, 0);
+    const Type cdh = Matrix_Get(self, 0, 2) * Matrix_Get(self, 1, 0) * Matrix_Get(self, 2, 1);
 
-    Type first = aei + bfg + cdh;
+    const Type first = aei + bfg + cdh;
 
-    Type ceg = Matrix_Get(self, 0, 2) * Matrix_Get(self, 1, 1) * Matrix_Get(self, 2, 0);
-    Type afh = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 2) * Matrix_Get(self, 2, 1);
-    Type bdi = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 0) * Matrix_Get(self, 2, 2);
+    const Type ceg = Matrix_Get(self, 0, 2) * Matrix_Get(self, 1, 1) * Matrix_Get(self, 2, 0);
+    const Type afh = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 2) * Matrix_Get(self, 2, 1);
+    const Type bdi = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 0) * Matrix_Get(self, 2, 2);
 
-    Type second = ceg + afh + bdi;
+    const Type second = ceg + afh + bdi;
 
     return first - second;
 }
