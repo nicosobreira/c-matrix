@@ -9,7 +9,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(unity)
 
 file(GLOB_RECURSE TESTS_SOURCES CONFIGURE_DEPENDS
-  ./*.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
 )
 
 add_executable(test_matrix ${TESTS_SOURCES})

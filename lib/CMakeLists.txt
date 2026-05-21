@@ -1,5 +1,5 @@
 file(GLOB_RECURSE MATRIX_SOURCES CONFIGURE_DEPENDS
-  ./src/*.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
 )
 
 add_library(matrix ${MATRIX_SOURCES})
@@ -12,4 +12,4 @@ target_include_directories(matrix
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(matrix PUBLIC project_flags)
+target_link_libraries(matrix PRIVATE project_flags)
