@@ -1,12 +1,9 @@
 #pragma once
 
-#include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>
 
 #include "errors.h"
-
-#define MATRIX_MAX_SIZE 256
 
 typedef double Type;
 
@@ -14,7 +11,7 @@ typedef struct Matrix
 {
     size_t lines;
     size_t columns;
-    Type data[MATRIX_MAX_SIZE][MATRIX_MAX_SIZE];
+    Type *data;
 } Matrix;
 
 #define X(enum_name, error_string) enum_name,
@@ -28,21 +25,17 @@ typedef enum MatrixResult
 
 MatrixResult Matrix_New(Matrix *new, size_t lines, size_t columns);
 
+MatrixResult Matrix_Free(Matrix *self);
+
 MatrixResult Matrix_NewFrom(Matrix *result, const Matrix *from);
 
 MatrixResult Matrix_Load(Matrix *new, size_t lines, size_t columns, Type data[lines][columns]);
 
 // ============================================================================
 
-static inline Type Matrix_Get(const Matrix *self, size_t i, size_t j)
-{
-    return self->data[i][j];
-}
+MatrixResult Matrix_Get(const Matrix *self, size_t i, size_t j, Type *variable);
 
-static inline void Matrix_Set(Matrix *self, size_t i, size_t j, Type value)
-{
-    self->data[i][j] = value;
-}
+MatrixResult Matrix_Set(Matrix *self, size_t i, size_t j, Type value);
 
 static inline bool Matrix_IsSquare(const Matrix *self)
 {

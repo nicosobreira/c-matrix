@@ -8,12 +8,13 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(unity)
 
-file(GLOB_RECURSE TESTS_SOURCES CONFIGURE_DEPENDS
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
-)
+function(add_unit_test name)
+  add_executable(${name} "src/${name}.c")
+  target_link_libraries(${name} PRIVATE matrix unity project_flags)
+  add_test(NAME ${name} COMMAND ${name})
+endfunction()
 
-add_executable(test_matrix ${TESTS_SOURCES})
-
-target_link_libraries(test_matrix PRIVATE matrix unity)
-
-add_test(NAME test_matrix COMMAND test_matrix)
+add_unit_test(test_operations)
+add_unit_test(test_triangular)
+add_unit_test(test_inverse)
+add_unit_test(test_determinant)

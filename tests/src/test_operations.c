@@ -1,12 +1,17 @@
-#include "operations.h"
-
 #include "unity.h"
 
 #include "matrix/core.h"
 
 #include "utils.h"
 
-void test_Matrix_Add_DiferentSizes(void)
+void setUp(void)
+{
+}
+void tearDown(void)
+{
+}
+
+static void test_Matrix_Add_DiferentSizes(void)
 {
     Matrix a;
     Matrix b;
@@ -14,14 +19,18 @@ void test_Matrix_Add_DiferentSizes(void)
     Matrix_New(&a, 4, 4);
     Matrix_New(&b, 2, 2);
 
-    Matrix c;
+    Matrix r;
 
-    MatrixResult result = Matrix_Add(&a, &b, &c);
+    MatrixResult result = Matrix_Add(&r, &a, &b);
+
+    Matrix_Free(&a);
+    Matrix_Free(&b);
+    Matrix_Free(&r);
 
     TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
 }
 
-void test_Matrix_Add_Correctness(void)
+static void test_Matrix_Add_Correctness(void)
 {
 #define N 2
 
@@ -35,16 +44,19 @@ void test_Matrix_Add_Correctness(void)
     Matrix_Load(&a, N, N, a_data);
     Matrix_Load(&b, N, N, b_data);
 
-    Matrix c;
+    Matrix r;
 
-    Matrix_Add(&c, &a, &b);
+    Matrix_Add(&r, &a, &b);
 
-    matrix_iter_assert(&c, N, N, c_data);
+    matrix_iter_assert(&r, N, N, c_data);
 
+    Matrix_Free(&a);
+    Matrix_Free(&b);
+    Matrix_Free(&r);
 #undef N
 }
 
-void test_Matrix_Product_WrongDimensions(void)
+static void test_Matrix_Product_WrongDimensions(void)
 {
     Matrix a;
     Matrix b;
@@ -52,14 +64,18 @@ void test_Matrix_Product_WrongDimensions(void)
     Matrix_New(&a, 1, 4);
     Matrix_New(&b, 2, 2);
 
-    Matrix c;
+    Matrix r;
 
-    MatrixResult result = Matrix_Product(&c, &a, &b);
+    MatrixResult result = Matrix_Product(&r, &a, &b);
+
+    Matrix_Free(&a);
+    Matrix_Free(&b);
+    Matrix_Free(&r);
 
     TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
 }
 
-void test_Matrix_Product_Correctness(void)
+static void test_Matrix_Product_Correctness(void)
 {
 #define M 3
 #define N 3
@@ -84,12 +100,16 @@ void test_Matrix_Product_Correctness(void)
 
     matrix_iter_assert(&c, M, P, c_data);
 
+    Matrix_Free(&a);
+    Matrix_Free(&b);
+    Matrix_Free(&c);
+
 #undef M
 #undef N
 #undef P
 }
 
-void test_Matrix_Product_CorrectnessVector(void)
+static void test_Matrix_Product_CorrectnessVector(void)
 {
 #define M 3
 #define N 3
@@ -114,7 +134,24 @@ void test_Matrix_Product_CorrectnessVector(void)
 
     matrix_iter_assert(&product, M, P, p_data);
 
+    Matrix_Free(&a);
+    Matrix_Free(&b);
+    Matrix_Free(&product);
+
 #undef M
 #undef N
 #undef P
+}
+
+int main(void)
+{
+    UNITY_BEGIN();
+
+    RUN_TEST(test_Matrix_Add_DiferentSizes);
+    RUN_TEST(test_Matrix_Add_Correctness);
+    RUN_TEST(test_Matrix_Product_WrongDimensions);
+    RUN_TEST(test_Matrix_Product_Correctness);
+    RUN_TEST(test_Matrix_Product_CorrectnessVector);
+
+    return UNITY_END();
 }

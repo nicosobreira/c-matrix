@@ -1,11 +1,16 @@
-#include "determinant.h"
-
 #include "unity.h"
 
 #include "matrix/core.h"
 #include "matrix/linalg.h"
 
-void test_Matrix_Determinant_NotSquare(void)
+void setUp(void)
+{
+}
+void tearDown(void)
+{
+}
+
+static void test_Matrix_Determinant_NotSquare(void)
 {
     Matrix a;
 
@@ -15,9 +20,11 @@ void test_Matrix_Determinant_NotSquare(void)
     MatrixResult result = Matrix_Determinant(&a, &det);
 
     TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
+
+    Matrix_Free(&a);
 }
 
-void test_Matrix_Determinant_1x1(void)
+static void test_Matrix_Determinant_1x1(void)
 {
     Type expected = 3;
 
@@ -32,9 +39,11 @@ void test_Matrix_Determinant_1x1(void)
     TEST_ASSERT_EQUAL(MATRIX_OK, result);
 
     TEST_ASSERT_EQUAL(expected, det);
+
+    Matrix_Free(&a);
 }
 
-void test_Matrix_Determinant_2x2(void)
+static void test_Matrix_Determinant_2x2(void)
 {
     Type expected = -21;
 
@@ -49,9 +58,11 @@ void test_Matrix_Determinant_2x2(void)
     TEST_ASSERT_EQUAL(MATRIX_OK, result);
 
     TEST_ASSERT_EQUAL(expected, det);
+
+    Matrix_Free(&a);
 }
 
-void test_Matrix_Determinant_3x3(void)
+static void test_Matrix_Determinant_3x3(void)
 {
     Type expected = -12;
 
@@ -66,9 +77,11 @@ void test_Matrix_Determinant_3x3(void)
     TEST_ASSERT_EQUAL(MATRIX_OK, result);
 
     TEST_ASSERT_EQUAL(expected, det);
+
+    Matrix_Free(&a);
 }
 
-void test_Matrix_Determinant_4x4(void)
+static void test_Matrix_Determinant_4x4(void)
 {
     Type expected_det = 1;
     Type data[4][4] = {
@@ -87,4 +100,19 @@ void test_Matrix_Determinant_4x4(void)
     TEST_ASSERT_EQUAL(MATRIX_OK, r);
 
     TEST_ASSERT_EQUAL(expected_det, det);
+
+    Matrix_Free(&a);
+}
+
+int main(void)
+{
+    UNITY_BEGIN();
+
+    RUN_TEST(test_Matrix_Determinant_NotSquare);
+    RUN_TEST(test_Matrix_Determinant_1x1);
+    RUN_TEST(test_Matrix_Determinant_2x2);
+    RUN_TEST(test_Matrix_Determinant_3x3);
+    RUN_TEST(test_Matrix_Determinant_4x4);
+
+    return UNITY_END();
 }

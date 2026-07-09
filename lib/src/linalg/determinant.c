@@ -1,45 +1,58 @@
+#include "matrix/core.h"
 #include "matrix/linalg.h"
+
+#include "../internal.h"
 
 static inline Type det_1x1(const Matrix *self)
 {
-    return Matrix_Get(self, 0, 0);
+    return internal_Matrix_Get(self, 0, 0);
 }
 
 static inline Type det_2x2(const Matrix *self)
 {
-    const Type first = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1);
-    const Type second = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 0);
+    const Type first = internal_Matrix_Get(self, 0, 0) * internal_Matrix_Get(self, 1, 1);
+    const Type second = internal_Matrix_Get(self, 0, 1) * internal_Matrix_Get(self, 1, 0);
 
     return first - second;
 }
 
 static inline Type det_3x3(const Matrix *self)
 {
-    const Type aei = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 1) * Matrix_Get(self, 2, 2);
-    const Type bfg = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 2) * Matrix_Get(self, 2, 0);
-    const Type cdh = Matrix_Get(self, 0, 2) * Matrix_Get(self, 1, 0) * Matrix_Get(self, 2, 1);
+    const Type aei =
+        internal_Matrix_Get(self, 0, 0) * internal_Matrix_Get(self, 1, 1) * internal_Matrix_Get(self, 2, 2);
+    const Type bfg =
+        internal_Matrix_Get(self, 0, 1) * internal_Matrix_Get(self, 1, 2) * internal_Matrix_Get(self, 2, 0);
+    const Type cdh =
+        internal_Matrix_Get(self, 0, 2) * internal_Matrix_Get(self, 1, 0) * internal_Matrix_Get(self, 2, 1);
 
     const Type first = aei + bfg + cdh;
 
-    const Type ceg = Matrix_Get(self, 0, 2) * Matrix_Get(self, 1, 1) * Matrix_Get(self, 2, 0);
-    const Type afh = Matrix_Get(self, 0, 0) * Matrix_Get(self, 1, 2) * Matrix_Get(self, 2, 1);
-    const Type bdi = Matrix_Get(self, 0, 1) * Matrix_Get(self, 1, 0) * Matrix_Get(self, 2, 2);
+    const Type ceg =
+        internal_Matrix_Get(self, 0, 2) * internal_Matrix_Get(self, 1, 1) * internal_Matrix_Get(self, 2, 0);
+    const Type afh =
+        internal_Matrix_Get(self, 0, 0) * internal_Matrix_Get(self, 1, 2) * internal_Matrix_Get(self, 2, 1);
+    const Type bdi =
+        internal_Matrix_Get(self, 0, 1) * internal_Matrix_Get(self, 1, 0) * internal_Matrix_Get(self, 2, 2);
 
     const Type second = ceg + afh + bdi;
 
     return first - second;
 }
 
-static inline Type det_nxn(const Matrix *self)
+static inline MatrixResult det_nxn(const Matrix *self, Type *det)
 {
     int line_swaps;
     Matrix triangular;
-    Matrix_TriangularSuperior(&triangular, self, &line_swaps);
+    MatrixResult r = Matrix_TriangularSuperior(&triangular, self, &line_swaps);
+    if (r != MATRIX_OK)
+    {
+        return r;
+    }
 
     Type result = 1;
     for (size_t i = 0; i < triangular.lines; ++i)
     {
-        result *= Matrix_Get(&triangular, i, i);
+        result *= internal_Matrix_Get(&triangular, i, i);
     }
 
     if (line_swaps % 2 == 1)
@@ -47,7 +60,9 @@ static inline Type det_nxn(const Matrix *self)
         result *= -1;
     }
 
-    return result;
+    *det = result;
+
+    return MATRIX_OK;
 }
 
 MatrixResult Matrix_Determinant(const Matrix *self, Type *result)
@@ -70,9 +85,10 @@ MatrixResult Matrix_Determinant(const Matrix *self, Type *result)
     case 3:
         *result = det_3x3(self);
         break;
-    default:
-        *result = det_nxn(self);
-        break;
+    default: {
+        MatrixResult r = det_nxn(self, result);
+        return r;
+    }
     }
 
     return MATRIX_OK;

@@ -1,5 +1,7 @@
 #include "matrix/core.h"
 
+#include "../internal.h"
+
 typedef Type (*Operation)(Type x, Type y);
 
 static inline Type add(Type x, Type y)
@@ -21,6 +23,8 @@ static inline MatrixResult Matrix_Operation(Matrix *result, const Matrix *a, con
 {
     if (!Matrix_IsSizeEqual(a, b))
     {
+        *result = (Matrix){0};
+
         return MATRIX_ERR_DIMENSIONS;
     }
 
@@ -38,8 +42,9 @@ static inline MatrixResult Matrix_Operation(Matrix *result, const Matrix *a, con
     {
         for (size_t j = 0; j < columns; ++j)
         {
-            Type value = func(Matrix_Get(a, i, j), Matrix_Get(b, i, j));
-            Matrix_Set(result, i, j, value);
+            Type value = func(internal_Matrix_Get(a, i, j), internal_Matrix_Get(b, i, j));
+
+            internal_Matrix_Set(result, i, j, value);
         }
     }
 
@@ -59,9 +64,9 @@ static inline MatrixResult Matrix_OperationBy(Matrix *result, const Matrix *self
     {
         for (size_t j = 0; j < result->columns; ++j)
         {
-            Type new = func(value, Matrix_Get(self, i, j));
+            Type new = func(value, internal_Matrix_Get(self, i, j));
 
-            Matrix_Set(result, i, j, new);
+            internal_Matrix_Set(result, i, j, new);
         }
     }
 
@@ -92,6 +97,7 @@ MatrixResult Matrix_Product(Matrix *result, const Matrix *a, const Matrix *b)
 {
     if (a->columns != b->lines)
     {
+        *result = (Matrix){0};
         return MATRIX_ERR_DIMENSIONS;
     }
 
@@ -112,10 +118,10 @@ MatrixResult Matrix_Product(Matrix *result, const Matrix *a, const Matrix *b)
 
             for (size_t k = 0; k < n; ++k)
             {
-                value += Matrix_Get(a, i, k) * Matrix_Get(b, k, j);
+                value += internal_Matrix_Get(a, i, k) * internal_Matrix_Get(b, k, j);
             }
 
-            Matrix_Set(result, i, j, value);
+            internal_Matrix_Set(result, i, j, value);
         }
     }
 
@@ -133,9 +139,9 @@ MatrixResult Matrix_ModuleBy(Matrix *self, int modulo)
     {
         for (size_t j = 0; j < self->columns; ++j)
         {
-            int value = (int)Matrix_Get(self, i, j);
+            int value = (int)internal_Matrix_Get(self, i, j);
 
-            Matrix_Set(self, i, j, value % modulo);
+            internal_Matrix_Set(self, i, j, value % modulo);
         }
     }
 

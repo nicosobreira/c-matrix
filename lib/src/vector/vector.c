@@ -1,8 +1,23 @@
 #include "matrix/vector.h"
+#include "matrix/core.h"
+
+#include <stdlib.h>
+
+Type internal_Vector_Get(const Vector *self, size_t i)
+{
+    return self->data[i];
+}
+
+void internal_Vector_Set(Vector *self, size_t i, Type value)
+{
+    self->data[i] = value;
+}
 
 MatrixResult Vector_New(Vector *v, size_t size)
 {
-    if (size == 0 || size > MATRIX_MAX_SIZE)
+    v->data = (Type *)malloc(size * sizeof(Type));
+
+    if (v->data == NULL)
     {
         return MATRIX_ERR_ALLOCATION;
     }
@@ -22,7 +37,7 @@ MatrixResult Vector_Clone(Vector *result, const Vector *from)
 
     for (size_t i = 0; i < result->size; ++i)
     {
-        Vector_Set(result, i, Vector_Get(from, i));
+        internal_Vector_Set(result, i, internal_Vector_Get(from, i));
     }
 
     return MATRIX_OK;
@@ -38,7 +53,7 @@ MatrixResult Vector_Load(Vector *result, size_t size, Type data[size])
 
     for (size_t i = 0; i < result->size; ++i)
     {
-        Vector_Set(result, i, data[i]);
+        internal_Vector_Set(result, i, data[i]);
     }
 
     return MATRIX_OK;

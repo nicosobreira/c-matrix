@@ -9,8 +9,8 @@ Encode Encode_New(Matrix *key, char a, char b)
 
     HANDLE_ERROR(Matrix_New(&temp, 2, 1));
 
-    Matrix_Set(&temp, 0, 0, a - 'a');
-    Matrix_Set(&temp, 1, 0, b - 'a');
+    HANDLE_ERROR(Matrix_Set(&temp, 0, 0, a - 'a'));
+    HANDLE_ERROR(Matrix_Set(&temp, 1, 0, b - 'a'));
 
     Encode self;
     HANDLE_ERROR(Matrix_Product(&self.data, key, &temp));
@@ -29,7 +29,9 @@ void Encode_Print(Encode *self)
     {
         for (size_t j = 0; j < columns; ++j)
         {
-            printf("%c", 'a' + (int)Matrix_Get(&self->data, i, j));
+            Type value;
+            HANDLE_ERROR(Matrix_Get(&self->data, i, j, &value))
+            printf("%c", 'a' + (int)value);
         }
     }
 

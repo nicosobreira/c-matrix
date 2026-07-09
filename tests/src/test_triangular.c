@@ -1,12 +1,18 @@
-#include "triangular.h"
-
+#include "matrix/core.h"
 #include "unity.h"
 
 #include "matrix/linalg.h"
 
 #include "utils.h"
 
-void test_Matrix_TriangularSuperior_NullSwap(void)
+void setUp(void)
+{
+}
+void tearDown(void)
+{
+}
+
+static void test_Matrix_TriangularSuperior_NullSwap(void)
 {
     Matrix original;
     Matrix_New(&original, 2, 2);
@@ -15,9 +21,12 @@ void test_Matrix_TriangularSuperior_NullSwap(void)
     MatrixResult r = Matrix_TriangularSuperior(&triangular, &original, NULL);
 
     TEST_ASSERT_EQUAL(MATRIX_OK, r);
+
+    Matrix_Free(&original);
+    Matrix_Free(&triangular);
 }
 
-void test_Matrix_TriangularSuperior_WithoutSwap(void)
+static void test_Matrix_TriangularSuperior_WithoutSwap(void)
 {
     Type original_data[2][2] = {{2, 4}, {1, 5}};
 
@@ -30,9 +39,12 @@ void test_Matrix_TriangularSuperior_WithoutSwap(void)
 
     TEST_ASSERT_EQUAL(MATRIX_OK, r);
     TEST_ASSERT_EQUAL(0, line_swaps);
+
+    Matrix_Free(&original);
+    Matrix_Free(&triangular);
 }
 
-void test_Matrix_TriangularSuperior_WithSwap(void)
+static void test_Matrix_TriangularSuperior_WithSwap(void)
 {
     Type original_data[2][2] = {{0, 1}, {2, 3}};
 
@@ -47,7 +59,7 @@ void test_Matrix_TriangularSuperior_WithSwap(void)
     TEST_ASSERT_EQUAL(1, line_swaps);
 }
 
-void test_Matrix_TriangularSuperior_NotSquare(void)
+static void test_Matrix_TriangularSuperior_NotSquare(void)
 {
     Matrix original;
     Matrix_New(&original, 1, 5);
@@ -56,9 +68,12 @@ void test_Matrix_TriangularSuperior_NotSquare(void)
     MatrixResult r = Matrix_TriangularSuperior(&triangular, &original, NULL);
 
     TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, r);
+
+    Matrix_Free(&original);
+    Matrix_Free(&triangular);
 }
 
-void test_Matrix_TriangularSuperior_Correctness(void)
+static void test_Matrix_TriangularSuperior_Correctness(void)
 {
     Type original_data[3][3] = {
         {1, 2, 3}, //
@@ -81,9 +96,12 @@ void test_Matrix_TriangularSuperior_Correctness(void)
     TEST_ASSERT_EQUAL(MATRIX_OK, r);
 
     matrix_iter_assert(&triangular, 3, 3, expected_data);
+
+    Matrix_Free(&original);
+    Matrix_Free(&triangular);
 }
 
-void test_Matrix_TriangularSuperior_DoNothing(void)
+static void test_Matrix_TriangularSuperior_DoNothing(void)
 {
     Type original_data[3][3] = {
         {3, 4, 2}, //
@@ -100,4 +118,21 @@ void test_Matrix_TriangularSuperior_DoNothing(void)
     TEST_ASSERT_EQUAL(MATRIX_OK, r);
 
     matrix_iter_assert(&triangular, 3, 3, original_data);
+
+    Matrix_Free(&original);
+    Matrix_Free(&triangular);
+}
+
+int main(void)
+{
+    UNITY_BEGIN();
+
+    RUN_TEST(test_Matrix_TriangularSuperior_NullSwap);
+    RUN_TEST(test_Matrix_TriangularSuperior_WithoutSwap);
+    RUN_TEST(test_Matrix_TriangularSuperior_WithSwap);
+    RUN_TEST(test_Matrix_TriangularSuperior_NotSquare);
+    RUN_TEST(test_Matrix_TriangularSuperior_Correctness);
+    RUN_TEST(test_Matrix_TriangularSuperior_DoNothing);
+
+    return UNITY_END();
 }

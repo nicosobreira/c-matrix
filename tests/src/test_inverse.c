@@ -1,13 +1,19 @@
-#include "inverse.h"
-
 #include "unity.h"
 
 #include "matrix/core.h"
 #include "matrix/linalg.h"
 
+#include "unity_internals.h"
 #include "utils.h"
 
-void test_Matrix_Inverse_2x2(void)
+void setUp(void)
+{
+}
+void tearDown(void)
+{
+}
+
+static void test_Matrix_Inverse_2x2(void)
 {
     Type original[2][2] = {{4, 7}, {2, 6}};
     Type expected[2][2] = {{0.6, -0.7}, {-0.2, 0.4}};
@@ -21,9 +27,12 @@ void test_Matrix_Inverse_2x2(void)
     TEST_ASSERT_EQUAL(MATRIX_OK, r);
 
     matrix_iter_assert(&inverse, 2, 2, expected);
+
+    Matrix_Free(&a);
+    Matrix_Free(&inverse);
 }
 
-void test_Matrix_Inverse_WithLineSwap(void)
+static void test_Matrix_Inverse_WithLineSwap(void)
 {
     Type original[2][2] = {{0, 2}, {1, 3}};
     Type expected[2][2] = {{-1.5, 1}, {0.5, 0}};
@@ -37,9 +46,12 @@ void test_Matrix_Inverse_WithLineSwap(void)
     TEST_ASSERT_EQUAL(MATRIX_OK, r);
 
     matrix_iter_assert(&inverse, 2, 2, expected);
+
+    Matrix_Free(&a);
+    Matrix_Free(&inverse);
 }
 
-void test_Matrix_Inverse_NotInvertible(void)
+static void test_Matrix_Inverse_NotInvertible(void)
 {
     Type data[2][2] = {{1, 2}, {2, 4}};
 
@@ -50,9 +62,12 @@ void test_Matrix_Inverse_NotInvertible(void)
     MatrixResult r = Matrix_Inverse(&inverse, &a);
 
     TEST_ASSERT_EQUAL(MATRIX_ERR_NOT_INVERTIBLE, r);
+
+    Matrix_Free(&a);
+    Matrix_Free(&inverse);
 }
 
-void test_Matrix_Inverse_NotSquare(void)
+static void test_Matrix_Inverse_NotSquare(void)
 {
     Matrix a;
     Matrix_New(&a, 1, 4);
@@ -61,9 +76,12 @@ void test_Matrix_Inverse_NotSquare(void)
     MatrixResult r = Matrix_Inverse(&inverse, &a);
 
     TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, r);
+
+    Matrix_Free(&a);
+    Matrix_Free(&inverse);
 }
 
-void test_Matrix_Inverse_Identity(void)
+static void test_Matrix_Inverse_Identity(void)
 {
     Type data[3][3] = {
         {1, 0, 0}, //
@@ -80,4 +98,20 @@ void test_Matrix_Inverse_Identity(void)
     TEST_ASSERT_EQUAL(MATRIX_OK, r);
 
     matrix_iter_assert(&inverse, 3, 3, data);
+
+    Matrix_Free(&a);
+    Matrix_Free(&inverse);
+}
+
+int main(void)
+{
+    UNITY_BEGIN();
+
+    RUN_TEST(test_Matrix_Inverse_2x2);
+    RUN_TEST(test_Matrix_Inverse_WithLineSwap);
+    RUN_TEST(test_Matrix_Inverse_NotInvertible);
+    RUN_TEST(test_Matrix_Inverse_NotSquare);
+    RUN_TEST(test_Matrix_Inverse_Identity);
+
+    return UNITY_END();
 }

@@ -2,12 +2,10 @@
 
 #include "core.h"
 
-#define VECTOR_MAX_SIZE 8
-
 typedef struct Vector
 {
     size_t size;
-    Type data[VECTOR_MAX_SIZE];
+    Type *data;
 } Vector;
 
 MatrixResult Vector_New(Vector *v, size_t size);
@@ -16,15 +14,9 @@ MatrixResult Vector_Load(Vector *result, size_t size, Type data[size]);
 
 // ============================================================================
 
-static inline Type Vector_Get(const Vector *self, size_t i)
-{
-    return self->data[i];
-}
+MatrixResult Vector_Get(const Vector *self, size_t i, Type *variable);
 
-static inline void Vector_Set(Vector *self, size_t i, Type value)
-{
-    self->data[i] = value;
-}
+MatrixResult Vector_Set(Vector *self, size_t i, Type value);
 
 // ============================================================================
 

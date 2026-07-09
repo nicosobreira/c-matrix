@@ -23,7 +23,9 @@ void Decode_Print(Decode *self)
     {
         for (size_t j = 0; j < columns; ++j)
         {
-            printf("%c", 'a' + (char)Matrix_Get(&self->data, i, j));
+            Type value;
+            HANDLE_ERROR(Matrix_Get(&self->data, i, j, &value));
+            printf("%c", 'a' + (char)value);
         }
     }
 
