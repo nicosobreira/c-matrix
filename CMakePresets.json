@@ -1,14 +1,14 @@
 {
-  "version": 3,
+  "version": 6,
   "configurePresets": [
     {
       "name": "base",
       "hidden": true,
-      "binaryDir": "${sourceDir}/build",
+      "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "BUILD_EXAMPLES": "ON",
-        "BUILD_TESTS": "ON"
+        "BUILD_TESTING": "ON",
+        "BUILD_EXAMPLES": "ON"
       }
     },
     {
@@ -23,18 +23,55 @@
       "inherits": "base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "BUILD_EXAMPLES": "OFF",
-        "BUILD_TESTS": "OFF"
+        "BUILD_TESTING": "OFF",
+        "BUILD_EXAMPLES": "OFF"
       }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "build-debug",
+      "configurePreset": "debug"
+    },
+    {
+      "name": "build-release",
+      "configurePreset": "release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "test-debug",
+      "configurePreset": "debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "dev",
+      "displayName": "Configure + Build (Debug)",
+      "steps": [
+        { "type": "configure", "name": "debug" },
+        { "type": "build",     "name": "build-debug" }
+      ]
+    },
+    {
+      "name": "ship",
+      "displayName": "Configure + Build (Release)",
+      "steps": [
+        { "type": "configure", "name": "release" },
+        { "type": "build",     "name": "build-release" }
+      ]
     },
     {
       "name": "test",
-      "inherits": "base",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "BUILD_EXAMPLES": "OFF",
-        "BUILD_TESTS": "ON"
-      }
+      "displayName": "Configure + Build + Test (Debug)",
+      "steps": [
+        { "type": "configure", "name": "debug" },
+        { "type": "build", "name": "build-debug" },
+        { "type": "test", "name": "test-debug" }
+      ]
     }
   ]
 }
