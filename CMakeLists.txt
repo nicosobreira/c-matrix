@@ -5,7 +5,7 @@ project(lib-matrix
 )
 
 option(BUILD_EXAMPLES "Compile the examples" ON)
-option(BUILD_TESTS "Compile the tests" ON)
+option(BUILD_TESTING "Compile the tests" ON)
 
 add_library(project_flags INTERFACE)
 
@@ -41,7 +41,7 @@ if(BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
-if(BUILD_TESTS)
+if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
 endif()
