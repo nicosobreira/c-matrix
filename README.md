@@ -78,7 +78,3 @@ Encrypts and decrypts 2-letter blocks with the Hill Cipher: encoding is a matrix
 ./tools/run.sh debug     # build and attach gdb (gdbserver + tmux split if inside tmux)
 ./tools/run.sh profile   # build in profile mode, record with perf, open in hotspot
 ```
-
-## License
-
-No license file yet — add one before treating this as reusable by others.
