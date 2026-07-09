@@ -11,7 +11,7 @@ static inline Type internal_Matrix_Get(const Matrix *self, size_t i, size_t j)
     assert(i < self->lines);
     assert(j < self->columns);
 
-    return self->data[i * self->lines + j];
+    return self->data[i * self->columns + j];
 }
 
 /// Internal Matrix Set
@@ -21,5 +21,5 @@ static inline void internal_Matrix_Set(Matrix *self, size_t i, size_t j, Type va
     assert(i < self->lines);
     assert(j < self->columns);
 
-    self->data[i * self->lines + j] = value;
+    self->data[i * self->columns + j] = value;
 }
