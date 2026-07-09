@@ -1,8 +1,8 @@
 {
-  description = "Multi-platform dev shell with safe platform-specific tools";
+  description = "C/C++ Development Shell";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -14,17 +14,21 @@
     flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {inherit system;};
-        inherit (pkgs);
+
+        toolchain = pkgs.llvmPackages_latest;
       in {
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            git
-            cmake
-            clang-tools
-            cmake-language-server
-            # valgrind
-          ];
-        };
+        devShells.default =
+          pkgs.mkShell.override {
+            stdenv = toolchain.stdenv;
+          } {
+            nativeBuildInputs = with pkgs; [
+              cmake
+              ninja
+              cmake-language-server
+
+              toolchain.clang-tools
+            ];
+          };
       }
     );
 }
