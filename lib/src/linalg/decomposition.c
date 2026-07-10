@@ -127,12 +127,6 @@ MatrixResult Matrix_Inverse(Matrix *result, const Matrix *from)
         return r;
     }
 
-    r = Matrix_New(result, from->lines, from->columns);
-    if (r != MATRIX_OK)
-    {
-        return r;
-    }
-
     for (size_t pivot = 0; pivot < n; ++pivot)
     {
         // If the pivot is zero, then search for another line to swap
