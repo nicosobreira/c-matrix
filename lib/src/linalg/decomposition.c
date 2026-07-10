@@ -51,12 +51,8 @@ MatrixResult Matrix_TriangularSuperior(Matrix *result, const Matrix *from, int *
         return r;
     }
 
-    if (line_swaps != NULL)
-    {
-        *line_swaps = 0;
-    }
-
     size_t n = result->lines;
+    int my_lines_swaps = 0;
 
     for (size_t pivot = 0; pivot < n; ++pivot)
     {
@@ -72,10 +68,7 @@ MatrixResult Matrix_TriangularSuperior(Matrix *result, const Matrix *from, int *
 
                 swap_lines(result, current, pivot);
 
-                if (line_swaps != NULL)
-                {
-                    *line_swaps += 1;
-                }
+                my_lines_swaps += 1;
 
                 break;
             }
@@ -99,6 +92,11 @@ MatrixResult Matrix_TriangularSuperior(Matrix *result, const Matrix *from, int *
 
             add_line_by_multiple(result, pivot, current, -k, pivot);
         }
+    }
+
+    if (line_swaps != NULL)
+    {
+        *line_swaps = my_lines_swaps;
     }
 
     return MATRIX_OK;
