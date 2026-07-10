@@ -23,11 +23,11 @@ static void test_Matrix_Add_DiferentSizes(void)
 
     MatrixResult result = Matrix_Add(&r, &a, &b);
 
+    TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
+
     Matrix_Free(&a);
     Matrix_Free(&b);
     Matrix_Free(&r);
-
-    TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
 }
 
 static void test_Matrix_Add_Correctness(void)
@@ -68,11 +68,11 @@ static void test_Matrix_Product_WrongDimensions(void)
 
     MatrixResult result = Matrix_Product(&r, &a, &b);
 
+    TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
+
     Matrix_Free(&a);
     Matrix_Free(&b);
     Matrix_Free(&r);
-
-    TEST_ASSERT_EQUAL(MATRIX_ERR_DIMENSIONS, result);
 }
 
 static void test_Matrix_Product_Correctness(void)
