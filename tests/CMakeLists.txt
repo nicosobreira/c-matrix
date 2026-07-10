@@ -15,6 +15,8 @@ function(add_unit_test name)
 endfunction()
 
 add_unit_test(test_operations)
+add_unit_test(test_identity)
+
 add_unit_test(test_triangular)
 add_unit_test(test_inverse)
 add_unit_test(test_determinant)
