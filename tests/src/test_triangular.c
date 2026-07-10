@@ -57,6 +57,9 @@ static void test_Matrix_TriangularSuperior_WithSwap(void)
 
     TEST_ASSERT_EQUAL(MATRIX_OK, r);
     TEST_ASSERT_EQUAL(1, line_swaps);
+
+    Matrix_Free(&original);
+    Matrix_Free(&triangular);
 }
 
 static void test_Matrix_TriangularSuperior_NotSquare(void)
