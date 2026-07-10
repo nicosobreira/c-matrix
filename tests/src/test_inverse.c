@@ -3,7 +3,6 @@
 #include "matrix/core.h"
 #include "matrix/linalg.h"
 
-#include "unity_internals.h"
 #include "utils.h"
 
 void setUp(void)
