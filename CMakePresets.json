@@ -8,7 +8,8 @@
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "BUILD_TESTING": "ON",
-        "BUILD_EXAMPLES": "ON"
+        "BUILD_EXAMPLES": "ON",
+        "BUILD_BENCHMARKS": "OFF"
       }
     },
     {
@@ -26,6 +27,13 @@
         "BUILD_TESTING": "OFF",
         "BUILD_EXAMPLES": "OFF"
       }
+    },
+    {
+      "name": "benchmark",
+      "inherits": "release",
+      "cacheVariables": {
+        "BUILD_BENCHMARKS": "ON"
+      }
     }
   ],
   "buildPresets": [
@@ -36,6 +44,10 @@
     {
       "name": "build-release",
       "configurePreset": "release"
+    },
+    {
+      "name": "build-benchmark",
+      "configurePreset": "benchmark"
     }
   ],
   "testPresets": [
@@ -71,6 +83,14 @@
         { "type": "configure", "name": "debug" },
         { "type": "build", "name": "build-debug" },
         { "type": "test", "name": "test-debug" }
+      ]
+    },
+    {
+      "name": "bench",
+      "displayName": "Configure + Build Benchmarks (Release)",
+      "steps": [
+        { "type": "configure", "name": "benchmark" },
+        { "type": "build",     "name": "build-benchmark" }
       ]
     }
   ]

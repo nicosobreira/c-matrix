@@ -2,11 +2,13 @@
 
 set -eou pipefail
 
+BUILD="./build"
+
 function binary_path()
 {
 	local preset="$1"
 
-	echo "build/${preset}/examples/example"
+    echo "${BUILD}/${preset}/examples/example"
 }
 
 function run_workflow()
@@ -52,18 +54,34 @@ function run_test()
     link_compile_commands "debug"
 }
 
+function run_benchmarks()
+{
+    local bench_binary="$1"
+
+    run_workflow "bench"
+
+    if [[ -z "$bench_binary" ]]; then
+        return
+    fi
+
+    local path="${BUILD}/benchmark/benchmarks/${bench_binary}"
+    if [[ -f "$path" ]]; then
+        exec "$path"
+    fi
+
+    echo "Benchmark \"${path}\" doens't exist"
+}
+
 function link_compile_commands()
 {
     local preset="$1"
 
-    local build="./build"
-
-    local link="${build}/compile_commands.json"
+    local link="${BUILD}/compile_commands.json"
     if [[ ! -f "${link}" ]]; then
         echo "Linking compile_commands ..."
 
         local src="./${preset}/compile_commands.json"
-        (cd "${build}" && ln -s "${src}" .)
+        (cd "${BUILD}" && ln -s "${src}" .)
     fi
 }
 
@@ -77,19 +95,24 @@ function run()
 }
 
 MODE="${1-}"
+OPT="${2-}"
 
 case "$MODE" in
 	debug | d)
 		echo -e "\tDebug\n"
 		run_debug
 		;;
-	build | b)
+	build)
 		echo -e "\tBuild\n"
 		run_workflow "dev"
 		;;
 	test | t)
 		echo -e "\tTest\n"
 		run_test
+		;;
+	bench)
+		echo -e "\tBenchmarks\n"
+		run_benchmarks "$OPT"
 		;;
 	run | r)
 		run
