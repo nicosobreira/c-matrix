@@ -1,6 +1,6 @@
 # Matrix Lib
 
-A C library for matrix operations, built with [CMake](https://cmake.org/), tested with [Unity](https://www.throwtheswitch.org/unity), and demonstrated through two applications: an ASCII 3D cube renderer and a Hill Cipher encoder/decoder.
+A C library for matrix operations, built with [CMake](https://cmake.org/), tested with [Unity](https://www.throwtheswitch.org/unity).
 
 ## Highlights
 
@@ -49,24 +49,6 @@ ctest --test-dir build
 ```
 
 Unity is fetched automatically through CMake's `FetchContent`. Tests cover dimension mismatches, allocation limits, and correctness of determinant/inverse/triangular reduction against known matrices.
-
-## Examples
-
-### Cube
-
-Renders a point rotating in 2D on an ASCII terminal buffer, driven by a fixed-timestep loop (`MS_PER_UPDATE` with lag accumulation). See [`examples/cube/README.md`](examples/cube/README.md) for the rotation matrices behind it.
-
-```bash
-./build/examples/cube/cube
-```
-
-### Cipher
-
-Encrypts and decrypts 2-letter blocks with the Hill Cipher: encoding is a matrix product with a key matrix, decoding is a matrix product with its modular inverse. See [`examples/cipher/README.md`](examples/cipher/README.md).
-
-```bash
-./build/examples/cipher/cipher
-```
 
 ## Dev Tools
 
