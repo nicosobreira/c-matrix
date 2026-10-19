@@ -24,9 +24,13 @@ target_compile_options(project_flags INTERFACE
     -Wpedantic
     -Wshadow
     -Wformat=2
-    -Werror
-    $<$<CONFIG:RelWithDebInfo>:-O3;-g;-fno-omit-frame-pointer>
+    -Wsign-conversion
+    -Wfloat-conversion
+    -Wnull-dereference
+    -Wimplicit-fallthrough
+    -Wuninitialized
     $<$<CONFIG:Release>:-O2>
+    $<$<CONFIG:RelWithDebInfo>:-O3;-g;-fno-omit-frame-pointer>
   >
 
   $<$<C_COMPILER_ID:MSVC>:
