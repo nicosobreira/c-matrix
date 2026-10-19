@@ -20,15 +20,20 @@ A C library for matrix operations, built with [CMake](https://cmake.org/), teste
 ## Project Structure
 
 ```
-lib/               core library
-  include/matrix/  public headers (core, linalg, vector, print, errors)
-  src/             implementation, split by domain (core, linalg, print, vector)
-tests/             unit tests (Unity)
-examples/
-  cube/            ASCII wireframe cube, fixed-timestep render loop
-  cipher/          Hill Cipher encoder/decoder
-tools/
-  run.sh           build / run / debug / profile helper
+lib
+├── CMakeLists.txt             # Build the matrix lib
+├── include                    # Public headers
+│   └── matrix
+│       ├── core.h             # Matrix data structure
+│       ├── errors.h           # Errors enums
+│       ├── linalg.h           # Linear algebra
+│       ├── print.h
+│       └── vector.h
+└── src
+    ├── core/
+    ├── linalg/
+    ├── print/
+    └── vector/
 ```
 
 ## Building
